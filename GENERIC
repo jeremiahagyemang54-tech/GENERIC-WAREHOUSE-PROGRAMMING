@@ -1,0 +1,83 @@
+from typing import TypeVar, Generic, List
+
+# Define a TypeVar T for generic type annotations
+T = TypeVar("T")
+
+class Inventory(Generic[T]):
+    """
+    A generic inventory class that supports storing, retrieving, 
+    and managing single items or multiple items of uniform data type.
+    """
+    def init(self, item: T = None) -> None:
+        self._item: T = item
+        self._items_list: List[T] = []
+        if item is not None:
+            self._items_list.append(item)
+
+    def store(self, item: T) -> None:
+        """Stores a single item."""
+        self._item = item
+        self._items_list.append(item)
+
+    def retrieve(self) -> T:
+        """Retrieves the most recently stored single item."""
+        return self._item
+
+    def display_info(self) -> None:
+        """Displays the type and value of the single stored item."""
+        print(f"Item Value : {self._item}")
+        print(f"Data Type  : {type(self._item).name}")
+
+    # Extended Functionality: Maintaining multiple items while preserving type consistency
+    def add_item(self, item: T) -> None:
+        """Adds an item to the generic collection while preserving type integrity."""
+        self._items_list.append(item)
+
+    def get_all_items(self) -> List[T]:
+        """Retrieves all stored items in the collection."""
+        return self._items_list
+
+    def display_all(self) -> None:
+        """Displays all items and their collective data type."""
+        print(f"Collection Values : {self._items_list}")
+        if self._items_list:
+            print(f"Elements Data Type: {type(self._items_list[0]).name}")
+
+
+# --- Demonstration ---
+if name == "main":
+    print("==================================================")
+    print("   SMART WAREHOUSE INVENTORY SYSTEM DEMO")
+    print("==================================================\n")
+
+    # 1. Product Names - Inventory[str]
+    print("--- 1. String Inventory (Product Names) ---")
+    product_inv = Inventory[str]("Wireless Logistics Scanner")
+    product_inv.display_info()
+    print()
+
+    # 2. Stock Quantities - Inventory[int]
+    print("--- 2. Integer Inventory (Stock Quantities) ---")
+    quantity_inv = Inventory[int](450)
+    quantity_inv.display_info()
+    print()
+
+    # 3. Product Prices - Inventory[float]
+    print("--- 3. Float Inventory (Product Prices) ---")
+    price_inv = Inventory[float](199.99)
+    price_inv.display_info()
+    print()
+
+    # 4. Serial Numbers Batch - Inventory[list]
+    print("--- 4. List Inventory (Serial Number Batches) ---")
+    batch_inv = Inventory[list](["SN-1001", "SN-1002", "SN-1003", "SN-1004"])
+    batch_inv.display_info()
+    print()
+
+    # 5. Extension: Managing Multiple Items with Type Consistency
+    print("--- 5. Extension: Generic Multi-Item Inventory ---")
+    multi_stock = Inventory[int]()
+    multi_stock.add_item(50)
+    multi_stock.add_item(120)
+    multi_stock.add_item(300)
+    multi_stock.display_all()
