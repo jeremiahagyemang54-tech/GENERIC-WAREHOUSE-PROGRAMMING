@@ -1,0 +1,37 @@
+from typing import TypeVar, Generic
+
+# Define a TypeVar T that can represent any data type
+T = TypeVar("T")
+
+class Storage(Generic[T]):
+    """Generic class to store and retrieve a single item of any data type."""
+    def init(self, item: T = None) -> None:
+        self._item: T = item
+
+    def store(self, item: T) -> None:
+        """Stores an item in the storage."""
+        self._item = item
+
+    def retrieve(self) -> T:
+        """Retrieves and returns the stored item."""
+        return self._item
+
+
+# --- Demonstration ---
+if name == "main":
+    print("=== Activity 1: Storage[T] Trial Demonstration ===\n")
+
+    # 1. Integer Storage
+    int_storage = Storage[int]()
+    int_storage.store(1001)
+    print(f"Integer Item Stored: {int_storage.retrieve()}")
+
+    # 2. String Storage
+    str_storage = Storage[str]()
+    str_storage.store("Warehouse Zone A")
+    print(f"String Item Stored:  {str_storage.retrieve()}")
+
+    # 3. List Storage
+    list_storage = Storage[list]()
+    list_storage.store(["Box 1", "Box 2", "Box 3"])
+    print(f"List Item Stored:    {list_storage.retrieve()}")
